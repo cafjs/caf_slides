@@ -1,0 +1,41 @@
+{
+    "name" : "ca",
+    "components": [
+        {
+            "name": "log"
+        },
+        {
+            "module": "caf_sms#plug_ca",
+            "name": "sms",
+            "description": "SMS service for this CA.",
+            "env" : {
+                "maxRetries" : "$._.env.maxRetries",
+                "retryDelay" : "$._.env.retryDelay"
+            },
+            "components" : [
+                {
+                    "module": "caf_sms#proxy",
+                    "name": "proxy",
+                    "description": "Proxy to sms services for this CA",
+                    "env" : {
+                    }
+                }
+            ]
+        },
+        {
+            "name": "handler",
+            "components" : [
+                {
+                    "name": "props",
+                    "env" : {
+                        "slidesFileName": "process.env.SLIDES_FILE_NAME||slides.md",
+                        "adminCA": "process.env.ADMIN_CA||admin",
+                        "minPageTime" : "process.env.MIN_PAGE_TIME||2000",
+                        "maxPageTime" : "process.env.MAX_PAGE_TIME||900000",
+                        "print" : "process.env.PRINT||false"
+                   }
+                }
+            ]
+        }
+    ]
+}

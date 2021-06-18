@@ -1,0 +1,29 @@
+{
+    "name": "top",
+    "env" : {
+        "appPublisher" :"process.env.APP_PUBLISHER||root",
+        "appLocalName" : "process.env.APP_LOCAL_NAME||slides",
+        "appSuffix" : "process.env.APP_SUFFIX||cafjs.com",
+        "appCDN" : "process.env.APP_CDN||https://rootcdn-1734e.kxcdn.com",
+        "appSubdirCDN" : "process.env.APP_SUBDIR_CDN||v0.0.1"
+     },
+    "components": [
+        {
+            "name": "log",
+            "env" : {
+                "logLevel" : "process.env.LOG_LEVEL||WARN"
+            }
+        },
+        {
+            "name": "cp"
+        },
+        {
+            "name": "sms",
+            "module": "caf_sms#plug",
+            "description": "Service to send SMS messages",
+            "env" : {
+                "smsURL": "process.env.SMS_URL||https://rest.nexmo.com/sms/json"
+            }
+        }
+    ]
+}
