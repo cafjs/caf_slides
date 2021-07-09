@@ -5,6 +5,7 @@ const rB = require('react-bootstrap');
 const cE = React.createElement;
 const AppActions = require('../actions/AppActions');
 
+const DEFAULT_DURATION = 10;
 
 class Run extends React.Component {
 
@@ -32,11 +33,11 @@ class Run extends React.Component {
     }
 
     doStart(ev) {
-        if (this.props.localRun && this.props.localRun.name &&
-            this.props.localRun.durationMin) {
+        if (this.props.localRun && this.props.localRun.name) {
             AppActions.changeIsLive(this.props.ctx, {
                 name: this.props.localRun.name,
-                durationMin : this.props.localRun.durationMin,
+                durationMin: this.props.localRun.durationMin ||
+                    DEFAULT_DURATION,
                 readOnly: true
             });
             AppActions.setLocalState(this.props.ctx, {localRun: null});

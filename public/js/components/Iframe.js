@@ -30,7 +30,9 @@ class Iframe extends React.Component {
         window.addEventListener('message', this.listener, false);
 
         this.setState({
-            url: this.props.slidesURL ? this.props.slidesURL + '/' + this.props.num : ''
+            url: this.props.slidesURL ?
+                this.props.slidesURL + '#' + this.props.num :
+                ''
         });
     }
 
@@ -43,7 +45,7 @@ class Iframe extends React.Component {
 
     render() {
         const url = this.props.slidesURL ?
-            this.props.slidesURL + '/' + this.props.num :
+            this.props.slidesURL + '#' + this.props.num :
             '';
 
         return cE('iframe', {
