@@ -71,7 +71,7 @@ const AppActions = {
     }
 };
 
-['getState'].forEach(function(x) {
+['changePage', 'getState'].forEach(function(x) {
      AppActions[x] = async function() {
          const args = Array.prototype.slice.call(arguments);
          const ctx = args.shift();

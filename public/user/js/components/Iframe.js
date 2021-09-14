@@ -19,9 +19,23 @@ class Iframe extends React.Component {
     componentDidMount() {
         this.listener = (event) => {
             // TODO: check event.origin
-            const pageNum = event.data.new;
-            const step = event.data.step || 0;
-            this.setState({pageNum, step});
+            if (this.props.isReplica) {
+                const pageNum = event.data.new;
+                const step = event.data.step || 0;
+                this.setState({pageNum, step});
+            } else {
+                const oldNum = event.data.old;
+                const newNum = event.data.new;
+                const step = event.data.step || 0;
+
+                if ((typeof oldNum === 'number') &&
+                    (typeof newNum === 'number')) {
+                    AppActions.changePage(this.props.ctx, oldNum, newNum, step);
+                } else {
+                    console.log('Ignoring message ' +
+                                JSON.stringify(event.data));
+                }
+            }
         };
 
         window.addEventListener('message', this.listener, false);
@@ -46,16 +60,18 @@ class Iframe extends React.Component {
             });
         }
 
-        if ((this.state.pageNum < this.props.num) ||
-            ((this.state.pageNum === this.props.num) &&
-             (this.state.step < this.props.step))) {
-            this.sendToIframe('increment');
-        }
+        if (this.props.isReplica) {
+            if ((this.state.pageNum < this.props.num) ||
+                ((this.state.pageNum === this.props.num) &&
+                 (this.state.step < this.props.step))) {
+                this.sendToIframe('increment');
+            }
 
-        if ((this.state.pageNum > this.props.num) ||
-            ((this.state.pageNum === this.props.num) &&
-             (this.state.step > this.props.step))) {
-            this.sendToIframe('decrement');
+            if ((this.state.pageNum > this.props.num) ||
+                ((this.state.pageNum === this.props.num) &&
+                 (this.state.step > this.props.step))) {
+                this.sendToIframe('decrement');
+            }
         }
     }
 

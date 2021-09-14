@@ -9,7 +9,9 @@ exports.connect = function(ctx) {
         const myURL = urlParser.parse(window.location.href);
         const userSession = 'session=user' + cli.randomString(8);
         myURL.hash = myURL.hash.replace('session=user', userSession);
-
+        if (myURL.hash.indexOf('isPrimary=true') > 0) {
+             AppActions.setLocalState(ctx, {isReplica: false});
+        }
         const session = new cli.Session(urlParser.format(myURL));
 
         session.onopen = async function() {

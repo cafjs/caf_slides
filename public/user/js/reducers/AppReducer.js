@@ -3,7 +3,7 @@ const redux = require('redux');
 
 const AppReducer = function(state, action) {
     if (typeof state === 'undefined') {
-        return  {isClosed: false};
+        return  {isReplica: true, isClosed: false};
     } else {
         switch(action.type) {
         case AppConstants.APP_UPDATE:

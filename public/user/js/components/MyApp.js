@@ -37,6 +37,7 @@ class MyApp extends React.Component {
         return cE(Iframe, {
             ctx: this.props.ctx,
             slidesURL: this.state.slidesURL,
+            isReplica: this.state.isReplica,
             num: this.state.currentPage && this.state.currentPage.num || 0,
             step: this.state.currentPage && this.state.currentPage.step || 0
         });
