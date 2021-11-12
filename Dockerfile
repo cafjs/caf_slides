@@ -6,7 +6,7 @@
 # TO_RUN:         cafjs run --appImage gcr.io/cafjs-k8/root-slides slides
 
 
-FROM node:14
+FROM node:16
 
 EXPOSE 3000
 
